@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .calculator label, .calculator input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .calculator input {
+            width: 100%;
+            padding: 5px;
+        }
+        .calculator button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #0056b3;
+        }
+        #hasil {
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Breakeven Calculator</h1>
+        
+        <label for="fixed-cost">Fixed Costs (RM):</label>
+        <input type="number" id="fixed-cost" placeholder="Enter Fixed Costs" step="0.01">
+        
+        <label for="variable-cost">Variable Cost per Unit (RM):</label>
+        <input type="number" id="variable-cost" placeholder="Enter Variable Cost per Unit" step="0.01">
+        
+        <label for="selling-price">Selling Price per Unit (RM):</label>
+        <input type="number" id="selling-price" placeholder="Enter Selling Price per Unit" step="0.01">
+        
+        <button onclick="calculateBreakeven()">Calculate Breakeven</button>
+        
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        const fixedCostInput = document.getElementById('fixed-cost');
+        const variableCostInput = document.getElementById('variable-cost');
+        const sellingPriceInput = document.getElementById('selling-price');
+        const hasilDiv = document.getElementById('hasil');
+
+        function calculateBreakeven() {
+            const fixedCost = parseFloat(fixedCostInput.value) || 0;
+            const variableCost = parseFloat(variableCostInput.value) || 0;
+            const sellingPrice = parseFloat(sellingPriceInput.value) || 0;
+
+            if (sellingPrice === 0 || (sellingPrice - variableCost) === 0) {
+                hasilDiv.innerHTML = "Breakeven: N/A (Division by zero)";
+            } else {
+                const breakevenUnits = fixedCost / (sellingPrice - variableCost);
+                const breakevenRevenue = breakevenUnits * sellingPrice;
+
+                hasilDiv.innerHTML = `Breakeven Units: ${breakevenUnits.toFixed(2)}<br>Breakeven Revenue: RM ${breakevenRevenue.toFixed(2)}`;
+            }
+        }
+    </script>
+</body>
+</html>
